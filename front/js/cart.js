@@ -110,7 +110,8 @@ if (productLocalStorage === null || productLocalStorage == 0) {
             } );
             if (totalQuantity.innerHTML == "0") {
                 localStorage.removeItem("product");
-                cartItems.innerHTML = "Le panier est vide.";
+                cartItems.innerHTML = "The cart is empty";
+                
               }
               //If all items have been deleted, disable order button
               disableOrder();
@@ -325,33 +326,17 @@ function getForm() {
         } else {
             
             document.getElementById("emailErrorMsg").innerHTML  = "";
-            order.style.cursor = "pointer";
-                order.disabled = false;
-            console.log('ok')
+            console.log('5')
             return true;
         }
     }
     
-
-
-
-    
-   
-
-    }
+ }
     getForm();
 
 
 
-     // prevent from submitting an empty form
-     
-  /* formSubmit.addEventListener('submit', forms)
-  function forms() {
-    const form = document.getElementsByClassName('cart__order__form')
-    if(firstName === '' || firstName == null) {
-        console.log('jo')
-    }
-  }  */
+ 
     
     
     //If cart is empty, order button is disabled
@@ -364,43 +349,32 @@ function disableOrder() {
 }
 
 
+// if form is empty but cart is not empty
+let cartForm = document.getElementsByClassName('cart__order__form')
+let firstName = document.getElementById('firstName')
+let lastName = document.getElementById('lastName')
+let address = document.getElementById('address')
+let city = document.getElementById('city')
+let email = document.getElementById('email')
 
 
-
-
-
-/* 
-let order = document.getElementById("order");
-//console.log(order)
-order.addEventListener("click", (e) => {
+cartForm.addEventListener('submit', (e) => {
   e.preventDefault();
- 
 
-  if (
-    firstName.value === "" ||
-    lastName.value === "" ||
-    address.value === "" ||
-    city.value === "" ||
-    email.value === ""
-  ) {
-    alert("You need to fill in your details for the order!!");
-  } else if (
-    validateFirstName() == false ||
-    validateLastName() == false ||
-    validateAddress() == false ||
-    validateEmail() == false ||
-    validateCity() == false
- 
-    
-  ) {
-    alert("Please fill in your details correctly!");
-    } 
-    
-  })
+  checkInputs()
+})
 
- */
-  
-   
+function checkInputs() {
+  const firstNameValue =  firstName.value.trim();
+  const lastNameValue =  lastName.value.trim();
+  const addressValue =  address.value.trim();
+  const cityValue =  city.value.trim();
+  const emailValue =  email.value.trim();
+}
+
+
+
+
    function postForm() {
     const order = document.getElementById('order');
     order.addEventListener('click', (e) => {
