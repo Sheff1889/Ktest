@@ -196,14 +196,16 @@ newArticleQuantity();
 
 /* filling out the form  */
 function getForm() {
-
+  
     let firstName = document.getElementById('firstName')
     let lastName = document.getElementById('lastName')
     let address = document.getElementById('address')
     let city = document.getElementById('city')
     let email = document.getElementById('email')
     
-    
+
+
+   
     
     firstName.addEventListener ("input", validateFirstName)
     
@@ -211,15 +213,22 @@ function getForm() {
     
         const regEx_FirstName = /^[a-zA-Z]{2,}$/;
     
-        if(regEx_FirstName.test(firstName.value) == false || firstName.value == "") {
+        if(regEx_FirstName.test(firstName.value) == false ||  firstName.value == "") {
     
     
                 document.getElementById("firstNameErrorMsg").innerHTML = "Your first name is not valid";
+                order.setAttribute("disabled", true);
+                order.style.cursor = "not-allowed";
+                console.log('false')
+                
                 return false;
         } else {
     
             document.getElementById("firstNameErrorMsg").innerHTML = "";
-            console.log('1')
+           // order.setAttribute("disabled", false);
+                order.style.cursor = "pointer";
+                order.disabled = false;
+            console.log('ok')
             return true;
         }
     }
@@ -234,11 +243,16 @@ function getForm() {
         if(regEx_LastName.test(lastName.value) == false || lastName.value == ""){
     
                 document.getElementById("lastNameErrorMsg").innerHTML = "Your last name is not valid";
+                order.setAttribute("disabled", true);
+                order.style.cursor = "not-allowed";
+                console.log('false')
                 return false;
         } else {
     
             document.getElementById("lastNameErrorMsg").innerHTML = "";
-            console.log('2')
+            order.style.cursor = "pointer";
+                order.disabled = false;
+            console.log('ok')
             return true;
         }
     }
@@ -254,11 +268,16 @@ function getForm() {
     
     
                 document.getElementById("addressErrorMsg").innerHTML = "Your address is not valid";
+                order.setAttribute("disabled", true);
+                order.style.cursor = "not-allowed";
+                console.log('false')
                 return false;
         } else {
     
             document.getElementById("addressErrorMsg").innerHTML = "";
-            console.log('3')
+            order.style.cursor = "pointer";
+                order.disabled = false;
+            console.log('ok')
             return true;
         }
     }
@@ -274,11 +293,16 @@ function getForm() {
         if(regEx_City.test(city.value)  == false || city.value == "" ){
     
                 document.getElementById("cityErrorMsg").innerHTML = "Your city is not valid";
+                order.setAttribute("disabled", true);
+                order.style.cursor = "not-allowed";
+                console.log('false')
                 return false;
         } else {
     
             document.getElementById("cityErrorMsg").innerHTML = "";
-            console.log('4')
+            order.style.cursor = "pointer";
+                order.disabled = false;
+            console.log('ok')
             return true;
         }
     }
@@ -290,21 +314,44 @@ function getForm() {
     function validateEmail() {
         const regEx_Email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     
-        if(regEx_Email.test(email.value) == false || email.value == ""){
+        if(regEx_Email.test(email.value) == false || email.value === ""){
             
             
                 document.getElementById("emailErrorMsg").innerHTML = "Your email is not valid";
+                order.setAttribute("disabled", true);
+                order.style.cursor = "not-allowed";
+                console.log('false')
                 return false;
         } else {
             
             document.getElementById("emailErrorMsg").innerHTML  = "";
-            console.log('5')
+            order.style.cursor = "pointer";
+                order.disabled = false;
+            console.log('ok')
             return true;
         }
     }
     
+
+
+
+    
+   
+
     }
     getForm();
+
+
+
+     // prevent from submitting an empty form
+     
+  /* formSubmit.addEventListener('submit', forms)
+  function forms() {
+    const form = document.getElementsByClassName('cart__order__form')
+    if(firstName === '' || firstName == null) {
+        console.log('jo')
+    }
+  }  */
     
     
     //If cart is empty, order button is disabled
@@ -313,8 +360,14 @@ function disableOrder() {
   if (!productLocalStorage || productLocalStorage.length === 0) {
     order.setAttribute("disabled", true);
     order.style.cursor = "not-allowed";
-  }
+  } 
 }
+
+
+
+
+
+
 
 /* 
 let order = document.getElementById("order");
@@ -392,7 +445,10 @@ order.addEventListener("click", (e) => {
         .then(data => {
         //localStorage.clear()
         document.location.href = 'confirmation.html?id='+ data.orderId;
-      }); 
+      })
+      .catch((error) => {
+        console.error(error);
+       });
      
   }); 
   } //post the form
